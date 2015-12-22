@@ -39,7 +39,7 @@ import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelPromise;
 import io.netty.util.ReferenceCountUtil;
-import org.apache.commons.codec.Charsets;
+import java.nio.charset.StandardCharsets;
 
 
 /**
@@ -52,7 +52,7 @@ public class CumulatingStringBuilderHandler extends ChannelHandlerAdapter
 	{
 		ByteBuf input = (ByteBuf) msg;
 		try {
-			cumulator.append(input.toString(Charsets.UTF_8));
+			cumulator.append(input.toString(StandardCharsets.UTF_8));
 		}
 		finally {
 			ReferenceCountUtil.release(input);
@@ -64,10 +64,10 @@ public class CumulatingStringBuilderHandler extends ChannelHandlerAdapter
 	public void                     write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise)
 	{
 		if (msg instanceof String) {
-			ctx.write(((String)msg).getBytes(Charsets.UTF_8));
+			ctx.write(((String)msg).getBytes(StandardCharsets.UTF_8));
 		}
 		else if (msg instanceof StringBuilder) {
-			ctx.write(msg.toString().getBytes(Charsets.UTF_8));
+			ctx.write(msg.toString().getBytes(StandardCharsets.UTF_8));
 		}
 		else if (msg instanceof ByteBuf) {
 			ctx.write(msg);

@@ -10,7 +10,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import org.junit.Assert;
 import org.junit.Test;
-import org.apache.commons.codec.Charsets;
+import java.nio.charset.StandardCharsets;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -52,11 +52,11 @@ public class CumulatingStringBuilderHandlerTest
 
 			client.writeAndFlush(Unpooled.wrappedBuffer(new byte[]{ '0' }));
 			Assert.assertEquals("0", syncer.take().toString());
-			client.writeAndFlush(Unpooled.wrappedBuffer("123\n456\n".getBytes(Charsets.UTF_8)));
+			client.writeAndFlush(Unpooled.wrappedBuffer("123\n456\n".getBytes(StandardCharsets.UTF_8)));
 			StringBuilder msg = syncer.take();
 			Assert.assertEquals("0123\n456\n", msg.toString());
 			msg.delete(0, 5);
-			client.writeAndFlush(Unpooled.wrappedBuffer("789\n".getBytes(Charsets.UTF_8)));
+			client.writeAndFlush(Unpooled.wrappedBuffer("789\n".getBytes(StandardCharsets.UTF_8)));
 			Assert.assertEquals("456\n789\n", syncer.take().toString());
 			client.disconnect();
 			Assert.assertEquals("", syncer.take().toString());

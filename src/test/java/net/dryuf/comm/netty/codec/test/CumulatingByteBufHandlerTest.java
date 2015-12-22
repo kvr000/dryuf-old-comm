@@ -11,7 +11,7 @@ import io.netty.channel.ChannelInitializer;
 import io.netty.channel.socket.SocketChannel;
 import org.junit.Test;
 
-import org.apache.commons.codec.Charsets;
+import java.nio.charset.StandardCharsets;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -52,11 +52,11 @@ public class CumulatingByteBufHandlerTest
 			netty.addManagedChannel(client);
 
 			client.writeAndFlush(Unpooled.wrappedBuffer(new byte[]{ '0' }));
-			NettyTestManager.assertByteBufEquals(Unpooled.wrappedBuffer("0".getBytes(Charsets.UTF_8)), syncer.take());
-			client.writeAndFlush(Unpooled.wrappedBuffer("123\n456\n".getBytes(Charsets.UTF_8)));
-			NettyTestManager.assertByteBufEquals(Unpooled.wrappedBuffer("0123\n456\n".getBytes(Charsets.UTF_8)), syncer.take());
+			NettyTestManager.assertByteBufEquals(Unpooled.wrappedBuffer("0".getBytes(StandardCharsets.UTF_8)), syncer.take());
+			client.writeAndFlush(Unpooled.wrappedBuffer("123\n456\n".getBytes(StandardCharsets.UTF_8)));
+			NettyTestManager.assertByteBufEquals(Unpooled.wrappedBuffer("0123\n456\n".getBytes(StandardCharsets.UTF_8)), syncer.take());
 			client.disconnect();
-			NettyTestManager.assertByteBufEquals(Unpooled.wrappedBuffer("".getBytes(Charsets.UTF_8)), syncer.take());
+			NettyTestManager.assertByteBufEquals(Unpooled.wrappedBuffer("".getBytes(StandardCharsets.UTF_8)), syncer.take());
 		}
 	}
 }

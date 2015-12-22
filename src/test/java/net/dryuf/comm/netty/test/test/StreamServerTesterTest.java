@@ -11,7 +11,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.apache.commons.codec.Charsets;
+import java.nio.charset.StandardCharsets;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -31,11 +31,11 @@ public class StreamServerTesterTest extends AppTenvObject
 			Channel client = tester.startClient();
 			DataInputStream input = tester.getClientDataStream();
 
-			client.writeAndFlush(Unpooled.wrappedBuffer("hi\n".getBytes(Charsets.UTF_8)));
+			client.writeAndFlush(Unpooled.wrappedBuffer("hi\n".getBytes(StandardCharsets.UTF_8)));
 			Assert.assertEquals('h', input.readByte());
 			Assert.assertEquals('i', input.readByte());
 			Assert.assertEquals('\n', input.readByte());
-			client.writeAndFlush(Unpooled.wrappedBuffer("world\n".getBytes(Charsets.UTF_8)));
+			client.writeAndFlush(Unpooled.wrappedBuffer("world\n".getBytes(StandardCharsets.UTF_8)));
 			Assert.assertEquals('w', input.readByte());
 			Assert.assertEquals('o', input.readByte());
 			Assert.assertEquals('r', input.readByte());

@@ -14,7 +14,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.apache.commons.codec.Charsets;
+import java.nio.charset.StandardCharsets;
 
 import java.io.DataInputStream;
 import java.io.IOException;
@@ -34,10 +34,10 @@ public class DatagramServerTesterTest extends AppTenvObject
 			Channel client = tester.startClient();
 			BlockingQueue<ByteBuf> input = tester.getClientQueue();
 
-			client.writeAndFlush(Unpooled.wrappedBuffer("hi\n".getBytes(Charsets.UTF_8)));
-			NettyTestManager.assertByteBufEquals(Unpooled.wrappedBuffer("hi\n".getBytes(Charsets.UTF_8)), input.take());
-			client.writeAndFlush(Unpooled.wrappedBuffer("world\n".getBytes(Charsets.UTF_8)));
-			NettyTestManager.assertByteBufEquals(Unpooled.wrappedBuffer("world\n".getBytes(Charsets.UTF_8)), input.take());
+			client.writeAndFlush(Unpooled.wrappedBuffer("hi\n".getBytes(StandardCharsets.UTF_8)));
+			NettyTestManager.assertByteBufEquals(Unpooled.wrappedBuffer("hi\n".getBytes(StandardCharsets.UTF_8)), input.take());
+			client.writeAndFlush(Unpooled.wrappedBuffer("world\n".getBytes(StandardCharsets.UTF_8)));
+			NettyTestManager.assertByteBufEquals(Unpooled.wrappedBuffer("world\n".getBytes(StandardCharsets.UTF_8)), input.take());
 		}
 		catch (InterruptedException e) {
 			throw new RuntimeException(e);

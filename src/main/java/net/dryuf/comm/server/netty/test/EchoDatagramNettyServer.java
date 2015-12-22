@@ -45,7 +45,7 @@ import io.netty.channel.socket.DatagramPacket;
 import io.netty.channel.socket.SocketChannel;
 import io.netty.handler.codec.LineBasedFrameDecoder;
 import io.netty.util.ReferenceCountUtil;
-import org.apache.commons.codec.Charsets;
+import java.nio.charset.StandardCharsets;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 
@@ -64,7 +64,7 @@ public class EchoDatagramNettyServer extends AbstractDatagramNettyServer
 				try {
 					DatagramPacket packet = (DatagramPacket) msg;
 					ByteBuf buf = packet.content();
-					logger.debug("Got "+buf.toString(Charsets.UTF_8));
+					logger.debug("Got "+buf.toString(StandardCharsets.UTF_8));
 					ctx.writeAndFlush(new DatagramPacket(buf.duplicate(), packet.sender()));
 				}
 				finally {
