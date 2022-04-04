@@ -1,5 +1,6 @@
 package net.dryuf.comm.netty.codec.test;
 
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.dryuf.comm.netty.codec.CumulatingStringBuilderHandler;
 import net.dryuf.comm.netty.test.NettyTestManager;
 import io.netty.buffer.Unpooled;
@@ -28,7 +29,7 @@ public class CumulatingStringBuilderHandlerTest
 				public void initChannel(SocketChannel ch) throws Exception {
 					ch.pipeline()
 						.addLast(new CumulatingStringBuilderHandler())
-						.addLast(new ChannelHandlerAdapter() {
+						.addLast(new ChannelInboundHandlerAdapter() {
 							@Override
 							public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 								syncer.put((StringBuilder) msg);
@@ -44,7 +45,7 @@ public class CumulatingStringBuilderHandlerTest
 			netty.addManagedChannel(channel);
 
 			Channel client = netty.getNettyManager().createStreamBootstrap()
-				.handler(new ChannelHandlerAdapter())
+				.handler(new ChannelInboundHandlerAdapter())
 				.connect(channel.localAddress())
 				.sync()
 				.channel();

@@ -45,6 +45,7 @@ import java.nio.channels.DatagramChannel;
 
 import com.google.common.net.HostAndPort;
 
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.dryuf.comm.server.netty.AbstractStreamNettyServer;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandler;
@@ -69,7 +70,7 @@ public class LineEchoStreamNettyServer extends AbstractStreamNettyServer
 			@Override
 			public void initChannel(SocketChannel ch) throws Exception {
 				ch.pipeline().addLast(new LineBasedFrameDecoder(1024));
-				ch.pipeline().addLast(new ChannelHandlerAdapter() {
+				ch.pipeline().addLast(new ChannelInboundHandlerAdapter() {
 					@Override
 					public void			channelRead(ChannelHandlerContext ctx, Object msg) {
 						try {

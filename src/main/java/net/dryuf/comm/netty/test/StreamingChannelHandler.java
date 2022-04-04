@@ -37,11 +37,12 @@ package net.dryuf.comm.netty.test;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
 
 import java.io.OutputStream;
 
-public class StreamingChannelHandler extends ChannelHandlerAdapter
+public class StreamingChannelHandler extends ChannelInboundHandlerAdapter
 {
 	public				StreamingChannelHandler(OutputStream outputStream)
 	{

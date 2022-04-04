@@ -35,6 +35,7 @@
 package net.dryuf.comm.netty;
 
 
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.dryuf.comm.MessageProcessor;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
@@ -46,7 +47,7 @@ import org.apache.logging.log4j.Logger;
 import java.net.InetSocketAddress;
 import java.util.concurrent.Executor;
 
-public abstract class DatagramNettyHandlerMessageProcessorAdapter<OUT, IN> extends ChannelHandlerAdapter
+public abstract class DatagramNettyHandlerMessageProcessorAdapter<OUT, IN> extends ChannelInboundHandlerAdapter
 {
 	public				DatagramNettyHandlerMessageProcessorAdapter(Executor executor, MessageProcessor<OUT, IN> processor)
 	{

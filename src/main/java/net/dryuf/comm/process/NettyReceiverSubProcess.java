@@ -56,7 +56,7 @@ public abstract class NettyReceiverSubProcess extends AbstractAsyncSubProcess
 	{
 		HostAndPort addr = HostAndPort.fromString(addrName);
 		try {
-			InetAddress host = InetAddress.getByName(addr.getHostText());
+			InetAddress host = InetAddress.getByName(addr.getHost());
 			InetSocketAddress bind = new InetSocketAddress(host, addr.getPort());
 			return bind;
 		}

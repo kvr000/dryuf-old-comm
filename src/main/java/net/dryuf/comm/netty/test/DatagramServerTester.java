@@ -35,6 +35,7 @@
 package net.dryuf.comm.netty.test;
 
 import com.google.common.util.concurrent.ListenableFuture;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.dryuf.comm.netty.NettyManager;
 import net.dryuf.comm.server.netty.AbstractDatagramNettyServer;
 import net.dryuf.comm.server.netty.AbstractStreamNettyServer;
@@ -66,7 +67,7 @@ public class DatagramServerTester<SERVERT extends AbstractDatagramNettyServer> e
 		try {
 			clientQueue = new LinkedBlockingQueue<>();
 			Channel client = nettyTestManager.getNettyManager().createDatagramBootstrap()
-				.handler(new ChannelHandlerAdapter() {
+				.handler(new ChannelInboundHandlerAdapter() {
 					@Override
 					public void channelRead(ChannelHandlerContext ctx, Object msg) throws Exception {
 						try {

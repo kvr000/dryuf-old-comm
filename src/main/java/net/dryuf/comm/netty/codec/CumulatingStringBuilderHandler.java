@@ -37,6 +37,10 @@ package net.dryuf.comm.netty.codec;
 import io.netty.buffer.ByteBuf;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandler;
+import io.netty.channel.ChannelInboundHandlerAdapter;
+import io.netty.channel.ChannelOutboundHandler;
+import io.netty.channel.ChannelOutboundHandlerAdapter;
 import io.netty.channel.ChannelPromise;
 import io.netty.util.ReferenceCountUtil;
 import java.nio.charset.StandardCharsets;
@@ -45,7 +49,7 @@ import java.nio.charset.StandardCharsets;
 /**
  * Created by rat on 2015-09-20.
  */
-public class CumulatingStringBuilderHandler extends ChannelHandlerAdapter
+public class CumulatingStringBuilderHandler extends ChannelInboundHandlerAdapter
 {
 	@Override
 	public void			channelRead(ChannelHandlerContext ctx, Object msg)
@@ -58,23 +62,6 @@ public class CumulatingStringBuilderHandler extends ChannelHandlerAdapter
 			ReferenceCountUtil.release(input);
 		}
 		ctx.fireChannelRead(cumulator);
-	}
-
-	@Override
-	public void                     write(ChannelHandlerContext ctx, Object msg, ChannelPromise promise)
-	{
-		if (msg instanceof String) {
-			ctx.write(((String)msg).getBytes(StandardCharsets.UTF_8));
-		}
-		else if (msg instanceof StringBuilder) {
-			ctx.write(msg.toString().getBytes(StandardCharsets.UTF_8));
-		}
-		else if (msg instanceof ByteBuf) {
-			ctx.write(msg);
-		}
-		else {
-			throw new IllegalArgumentException("Invalid object passed to write, supported are String, StringBuilder and ByteBuf: "+msg.getClass().getName());
-		}
 	}
 
 	protected StringBuilder         cumulator = new StringBuilder();

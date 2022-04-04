@@ -60,7 +60,7 @@ public abstract class SocketReceiverSubProcess extends ExecutorChildrenSubProces
 	{
 		HostAndPort addr = HostAndPort.fromString(addrName);
 		try {
-			InetAddress host = InetAddress.getByName(addr.getHostText());
+			InetAddress host = InetAddress.getByName(addr.getHost());
 			InetSocketAddress bind = new InetSocketAddress(host, addr.getPort());
 			return bind;
 		}

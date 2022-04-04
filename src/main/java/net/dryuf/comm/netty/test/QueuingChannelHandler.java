@@ -36,12 +36,13 @@ package net.dryuf.comm.netty.test;
 
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import io.netty.util.ReferenceCountUtil;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class QueuingChannelHandler<T> extends ChannelHandlerAdapter
+public class QueuingChannelHandler<T> extends ChannelInboundHandlerAdapter
 {
 	public				QueuingChannelHandler(BlockingQueue<T> queue)
 	{

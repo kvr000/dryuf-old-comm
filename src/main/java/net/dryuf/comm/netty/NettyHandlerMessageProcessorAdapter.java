@@ -35,13 +35,14 @@
 package net.dryuf.comm.netty;
 
 
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.dryuf.comm.MessageProcessor;
 import io.netty.channel.ChannelHandlerAdapter;
 import io.netty.channel.ChannelHandlerContext;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class NettyHandlerMessageProcessorAdapter extends ChannelHandlerAdapter
+public class NettyHandlerMessageProcessorAdapter extends ChannelInboundHandlerAdapter
 {
 	public				NettyHandlerMessageProcessorAdapter(MessageProcessor<?, ?> processor)
 	{

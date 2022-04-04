@@ -34,6 +34,7 @@
 
 package net.dryuf.comm.server.netty.test;
 
+import io.netty.channel.ChannelInboundHandlerAdapter;
 import net.dryuf.comm.server.netty.AbstractDatagramNettyServer;
 import net.dryuf.comm.server.netty.AbstractStreamNettyServer;
 import io.netty.buffer.ByteBuf;
@@ -58,7 +59,7 @@ public class EchoDatagramNettyServer extends AbstractDatagramNettyServer
 	@Override
 	protected ChannelHandler	createDatagramHandler()
 	{
-		return new ChannelHandlerAdapter() {
+		return new ChannelInboundHandlerAdapter() {
 			@Override
 			public void channelRead(ChannelHandlerContext ctx, Object msg) {
 				try {
